@@ -12,7 +12,8 @@
         "ext-mbstring": "*",
         "kint-php/kint": "^3.3",
         "psr/log": "^1.1",
-        "laminas/laminas-escaper": "^2.6"
+        "laminas/laminas-escaper": "^2.6",
+        "firebase/php-jwt": "^5.2"
     },
     "require-dev": {
         "codeigniter4/codeigniter4-standard": "^1.0",

@@ -33,6 +33,15 @@ $routes->setAutoRoute(true);
 $routes->resource('employee', [
     'websafe' => 1,
 ]);
+$routes->post('auth/signUp', 'Auth::signUp');
+$routes->post('auth/forgotPassword', 'Auth::forgotPassword');
+$routes->post('auth/resetPassword', 'Auth::resetPassword');
+$routes->post('auth/signOut', 'Auth::signOut');
+$routes->post('auth/userData', 'Auth::userData');
+$routes->resource('auth', [
+    'websafe' => 1,
+    ['only' => ['index', 'create']]
+]);
 
 /**
  * --------------------------------------------------------------------
