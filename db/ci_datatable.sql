@@ -29,14 +29,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `customer` (
-  `id` varchar(60) NOT NULL,
+  `id` varchar(60) NOT NULL DEFAULT (UUID()),
   `first_name` varchar(64) DEFAULT NULL,
   `last_name` varchar(64) DEFAULT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
   `status` enum('active','inactive','suspended') NOT NULL DEFAULT 'active',
-  `created_at` datetime DEFAULT NULL,
-  `modified_at` datetime DEFAULT NULL
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -48,16 +48,18 @@ CREATE TABLE `customer` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL COMMENT 'Primary Key',
   `name` varchar(100) NOT NULL COMMENT 'Name',
-  `email` varchar(255) NOT NULL COMMENT 'Email Address'
+  `email` varchar(255) NOT NULL COMMENT 'Email Address',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'Created At',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Updated At'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='datatable demo table';
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`) VALUES
-(1, 'mahmud', 'hasan@gmail.com'),
-(2, 'john', 'johndoe@gmail.com');
+INSERT INTO `users` (`id`, `name`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'mahmud', 'hasan@gmail.com', NOW(), NOW()),
+(2, 'john', 'johndoe@gmail.com', NOW(), NOW());
 
 --
 -- Indexes for dumped tables
@@ -75,7 +77,8 @@ ALTER TABLE `customer`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
